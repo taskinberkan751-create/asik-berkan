@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Aşık Berkan</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.envelope {
+  width: 320px;
+  height: 220px;
+  background: #e63946;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.letter {
+  width: 280px;
+  height: 170px;
+  background: #fff;
+  position: absolute;
+  left: 20px;
+  bottom: -180px;
+  transition: 1s ease;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.letter.open {
+  bottom: 20px;
+}
+
+#text {
+  font-size: 18px;
+  color: #444;
+  min-height: 60px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+button {
+  background: white;
+  border: none;
+  padding: 10px 22px;
+  margin: 5px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hearts span {
+  position: absolute;
+  animation: float 6s linear infinite;
+  font-size: 22px;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>💌 Aşık Berkan</h1>
+
+<div class="envelope">
+  <div class="letter" id="letter">
+    <div id="text"></div>
+  </div>
+</div>
+
+<div class="buttons">
+  <button onclick="openLetter()">Mektubu Aç</button>
+  <button onclick="closeLetter()">Gizle</button>
+</div>
+
+<!-- MÜZİK -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_4a70e3c1a3.mp3">
+</audio>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+const message = "Yılbaşının getirdiği en güzel hediye o güzel gözleri ❤️";
+let index = 0;
+
+function typeText() {
+  if (index < message.length) {
+    document.getElementById("text").innerHTML += message.charAt(index);
+    index++;
+    setTimeout(typeText, 60);
+  }
+}
+
+function openLetter() {
+  document.getElementById("letter").classList.add("open");
+  document.getElementById("music").play();
+  document.getElementById("text").innerHTML = "";
+  index = 0;
+  typeText();
+}
+
+function closeLetter() {
+  document.getElementById("letter").classList.remove("open");
+  document.getElementById("music").pause();
+}
+
+// Kalpler
+for (let i = 0; i < 25; i++) {
+  let heart = document.createElement("span");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.getElementById("hearts").appendChild(heart);
+}
+</script>
+
+</body>
+</html>
